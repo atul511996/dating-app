@@ -1,0 +1,91 @@
+cmd to install dependencies : npm install
+
+cmd to run project : npm run dev
+
+apis :
+
+ 1) url/user/signUp (POST)
+	inputs : name , password , email 
+	
+2) url/user/login  (POST)
+	inous : email , passwrod
+
+	**** nest all apis herader will containg x-access-token to authenticate user ***
+
+3) url/api/home/uploadImage  (POST)
+	inputs : x-access-token in herader , picture
+
+
+	comment  : if the user is uploading image first time then it will create new row in table else it will update existing row in database
+
+
+4) url/api/home/blockUser  (POST)
+	inputs : x-access-token in herader , second_user_id in body
+
+	
+5) url/api/home/unblockUser  (POST)
+	inputs : x-access-token in herader , second_user_id in body
+
+6) url/api/home/likeUnlike  (POST)
+	inputs : x-access-token in herader , image_id
+
+	comment : pictureLike is room fom socket to send like to owner without image
+
+7) url/api/home/superLikeUnlike  (POST)
+	inputs : x-access-token in herader , image_id
+	comment : pictureLike is room fro socket to send like to owner whit liker image 
+
+
+
+8) url/api/home/getHomepage  (POST)
+	inputs : x-access-token in herader 
+	
+
+
+
+table structures : 
+==========================================
+users table 
+-----------
+ CREATE TABLE `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
+)
+
+likes table
+-----------
+ CREATE TABLE `likes` (
+  `like_id` int(11) NOT NULL AUTO_INCREMENT,
+  `owner_id` int(11) NOT NULL,
+  `image_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT NULL,
+  `type` enum('like','superlike') DEFAULT 'like',
+ )
+image table 
+  --------------------
+
+CREATE TABLE `images` (
+  `image_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `image` varchar(100) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT NULL,
+)
+
+blocked_user
+----------
+ CREATE TABLE `blocked_user` (
+  `blocked_user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `second_user_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`blocked_user_id`)
+) 

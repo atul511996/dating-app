@@ -1,0 +1,29 @@
+{
+  "name": "dating-app",
+  "version": "1.0.0",
+  "description": "for dating",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atul511996/dating-app.git"
+  },
+  "author": "Atul Kumar Srivastava",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/atul511996/dating-app/issues"
+  },
+  "homepage": "https://github.com/atul511996/dating-app#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6-alpha.5",
+    "jsonwebtoken": "^8.5.1",
+    "mysql": "^2.17.1",
+    "nodemon": "^1.19.3",
+    "socket.io": "^2.3.0"
+  }
+}

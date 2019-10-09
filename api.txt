@@ -2,45 +2,258 @@ cmd to install dependencies : npm install
 
 cmd to run project : npm run dev
 
-apis :
+apis : "http://localhost:8007"
 
- 1) url/user/signUp (POST)
+ 1) ${url}/user/signUp (POST)
 	inputs : name , password , email 
 	
-2) url/user/login  (POST)
+	responses : 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b) {
+			"code": 200,
+			"status": "Success"
+			}	
+		c) {
+			"code": 403,
+			"status": "Invalid email :asgjagsj"
+			}	
+		d) {
+			"code": 409,
+			"status": " Email "atul511996@gmail.com" already registered!!"
+			}
+2) ${url}/user/login  (POST)
 	inous : email , passwrod
 
+	responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b){
+			"code": 403,
+			"status": "Invalid email :asgjagsj"
+			}
+		c) {
+			"code": 403,
+			"status": "Password not matched!!!"
+			}	
+		d){
+		"code": 401,
+		"status": "Email "atul511996@gmil.com" not registered!!"
+		}
+		e) {
+			"code": 200,
+			"status": "Success",
+				"data": {
+				"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjoxLCJpYXQiOjE1NzA2NDE3NTUsImV4cCI6MTU3MDcyODE1NX0.t3Y6iVGBzMbfJjx9wRALxtV9xM35hwsXD4JijTtoot0"
+				}
+			}
 	**** nest all apis herader will containg x-access-token to authenticate user ***
 
-3) url/api/home/uploadImage  (POST)
+3) ${url}/api/home/uploadImage  (POST)
 	inputs : x-access-token in herader , picture
 
-
+	responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b)No files were uploaded with http code : 400
+		c){
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		d) {
+			"code": 200,
+			"status": "Success"
+			}	
 	comment  : if the user is uploading image first time then it will create new row in table else it will update existing row in database
 
 
-4) url/api/home/blockUser  (POST)
+4) ${url}/api/home/blockUser  (POST)
 	inputs : x-access-token in herader , second_user_id in body
 
-	
-5) url/api/home/unblockUser  (POST)
+	responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b) {
+		"code": 403,
+		"status": "Invalid User"
+		}
+		c){
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		d){
+			"code": 403,
+			"status": "You cann't block your self!!"
+			}
+		e) {
+			"code": 200,
+			"status": "success"
+			}
+		f) {
+		"code": 403,
+		"status": "This user has been blocked by you!!"
+		}
+5) ${url}/api/home/unblockUser  (POST)
 	inputs : x-access-token in herader , second_user_id in body
 
-6) url/api/home/likeUnlike  (POST)
+		responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b) {
+		"code": 403,
+		"status": "Invalid User"
+		}
+		c){
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		d){
+			"code": 403,
+			"status": "You cann't unblock your self!!"
+			}
+		e) {
+			"code": 200,
+			"status": "success"
+			}
+		f) {
+		"code": 403,
+		"status": "This user has been unblocked by you!!"
+		}
+
+6) ${url}/api/home/likeUnlike  (POST)
 	inputs : x-access-token in herader , image_id
-
+	responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b) {
+			"code": 200,
+			"status": "success"
+			}
+		c) {
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		d) {
+			"code": 403,
+			"status": "Invalid image"
+			}
 	comment : pictureLike is room fom socket to send like to owner without image
 
-7) url/api/home/superLikeUnlike  (POST)
+7) ${url}/api/home/superLikeUnlike  (POST)
 	inputs : x-access-token in herader , image_id
+		responses: 
+		a) {
+			"code": 403,
+			"status": "Invalid Inputs"
+			}
+		b) {
+			"code": 200,
+			"status": "success"
+			}
+		c) {
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		d) {
+			"code": 403,
+			"status": "Invalid image"
+			}
 	comment : pictureLike is room fro socket to send like to owner whit liker image 
 
 
 
-8) url/api/home/getHomepage  (POST)
+8) ${url}/api/home/getHomepage  (POST)
 	inputs : x-access-token in herader 
-	
 
+	responses:
+		a) {
+			"code": 500,
+			"status": {
+			"name": "JsonWebTokenError",
+			"message": "invalid token"
+			}
+			}
+		b){
+			"code": 200,
+			"status": "success",
+			"data": [
+			{
+			"image_id": 1,
+			"user_id": 7,
+			"image": "C:/Users/Atul/Desktop/node/dating-app/files/20161005_120631.jpg",
+			"created_at": "2019-09-28T11:40:38.000Z",
+			"status": 1,
+			"name": "nnnnnn",
+			"email": "astul1s1996@gmail.com",
+			"password": "nnnnnnnnn",
+			"like_cnt": 1,
+			"is_personal_like": 0
+			},
+			{
+			"image_id": 2,
+			"user_id": 7,
+			"image": "C:/Users/Atul/Desktop/node/dating-app/files/20161005_120631.jpg",
+			"created_at": "2019-09-28T11:40:38.000Z",
+			"status": 1,
+			"name": "nnnnnn",
+			"email": "astul1s1996@gmail.com",
+			"password": "nnnnnnnnn",
+			"like_cnt": 8,
+			"is_personal_like": 1
+			},
+			{
+			"image_id": 3,
+			"user_id": 7,
+			"image": "C:/Users/Atul/Desktop/node/dating-app/files/20161005_120631.jpg",
+			"created_at": "2019-09-28T11:40:38.000Z",
+			"status": 1,
+			"name": "nnnnnn",
+			"email": "astul1s1996@gmail.com",
+			"password": "nnnnnnnnn",
+			"like_cnt": 0,
+			"is_personal_like": 0
+			},
+			{
+			"image_id": 4,
+			"user_id": 7,
+			"image": "C:/Users/Atul/Desktop/node/dating-app/files/20161005_120631.jpg",
+			"created_at": "2019-09-28T11:40:38.000Z",
+			"status": 1,
+			"name": "nnnnnn",
+			"email": "astul1s1996@gmail.com",
+			"password": "nnnnnnnnn",
+			"like_cnt": 1,
+			"is_personal_like": 0
+			}
+			],
+			}
 
 
 table structures : 

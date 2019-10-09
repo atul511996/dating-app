@@ -3,7 +3,7 @@ const util = require('util');
 
 let db = 'dating_app';
 const conn = mysql.createPool({
-    host : "18.225.6.171",
+    host : "localhost",
     user : "root",
     password : "golu511996",
     database: db

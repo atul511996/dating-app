@@ -29,7 +29,7 @@ let blockUser = async(req , res)=>{
             return;
         }
         if(req.user == req.body.second_user_id ){
-            res.status(403).send(helper.getMessage(403, "You cann;t block your self!!"))
+            res.status(403).send(helper.getMessage(403, "You cann't block your self!!"))
             return;
         }
             let is_user_exist = await home.isUserExist(req.body.second_user_id)
